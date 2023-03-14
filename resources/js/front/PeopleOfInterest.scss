@@ -1,0 +1,39 @@
+.people-of-interest {
+    display: flex;
+    flex-direction: column;
+
+    &__search {
+        display: flex;
+        flex-direction: column;
+
+        label {
+            margin-bottom: 0.5em;
+        }
+
+        margin-bottom: 1em;
+
+        input[type="text"] {
+            max-width: 25em;
+            font-size: 1.25em;
+            padding: 0.5em;
+            outline: none;
+            border-width: 0;
+            border-radius: 0.125em;
+        }
+    }
+
+    &__status {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pagination {
+        align-self: flex-end;
+    }
+}
