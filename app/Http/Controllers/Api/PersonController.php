@@ -13,6 +13,7 @@ class PersonController extends Controller
         $page = max(1, intval($request->input('page') ?? 1));
 
         $search = $request->input('search');
+        $status = $request->input('status');
 
         $on_page = 20;
 
@@ -26,6 +27,9 @@ class PersonController extends Controller
 
         if ($search) {
             $builder->where('name', 'like', "%{$search}%");
+        }
+        if ($status) {
+            $builder->where('status_id', $status);
         }
 
         // make a separate query to calculate the total

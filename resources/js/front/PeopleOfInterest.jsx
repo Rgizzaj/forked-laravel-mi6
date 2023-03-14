@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import PeopleList from "./PeopleList";
 import Pagination from "./Pagination";
 import './PeopleOfInterest.scss';
+import StatusFilter from "./StatusFilter";
 
 export default function PeopleOfInterest() {
 
@@ -11,12 +12,16 @@ export default function PeopleOfInterest() {
     const [lastPageNr, setLastPageNr] = useState(1);
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState('');
 
     const loadPeople = async () => {
         let url = `/api/people?page=${page}`;
 
         if (search) {
             url += `&search=${encodeURIComponent(search)}`;
+        }
+        if (selectedStatus !== '') {
+            url += '&status=' + encodeURIComponent(selectedStatus);
         }
 
         setLoading(true);
@@ -34,7 +39,7 @@ export default function PeopleOfInterest() {
 
     useEffect(() => {
         loadPeople();
-    }, [page, search]);
+    }, [page, search, selectedStatus]);
 
     useEffect(() => {
         setPage(1);
@@ -53,6 +58,8 @@ export default function PeopleOfInterest() {
                     onChange={ (event) => setSearch(event.target.value) }
                 />
             </div>
+
+            <StatusFilter selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus}/>
 
             <div className="people-of-interest__status">
 
