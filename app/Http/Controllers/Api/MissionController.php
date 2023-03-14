@@ -11,7 +11,6 @@ class MissionController extends Controller
     public function index() {
         $missions = Mission::with('people')->get();
 
-        // dd($missions);
         return $missions;
     }
 
@@ -26,9 +25,10 @@ class MissionController extends Controller
 
         $mission->name = $request->input('name');
         $mission->year = $request->input('year');
+        $mission->outcome = $request->input('outcome');
 
         $mission->save();
         
-        return $mission;
+        return ['message' => 'Succesfully saved'];
     }
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 
 export default function MissionEditForm({missionId, setMissionId}) {
     const [mission, setMission] = useState(null);
+    const [message, setMessage] = useState(null);
 
     const loadMission = async () => {
         try {
@@ -25,11 +26,20 @@ export default function MissionEditForm({missionId, setMissionId}) {
         });
     }
 
+    const handleCheckbox = (e) => {
+        setMission(previous_values => {
+            return ({...previous_values, 
+                [e.target.name]: e.target.checked
+            });
+        });
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
             let response = await axios.post('api/missions/store', mission)
+            setMessage(response.data['message'])
         } catch (error) {
             console.log(error)
         }
@@ -39,9 +49,13 @@ export default function MissionEditForm({missionId, setMissionId}) {
     return mission ? <div>
             <button onClick={()=>setMissionId(null)}>&times;</button>
             <h1>Edit Mission #{mission.id}</h1>
+            {
+                message ?? ''
+            }
             <form action='' method='post' onSubmit={handleSubmit}>
                 <input name='name' type='text' value={mission.name} onChange={handleChange}/>
                 <input name='year' type='number' value={mission.year} onChange={handleChange}/>
+                <input type="checkbox" name="outcome" checked={ mission.outcome ? true : false} onChange={handleCheckbox}/>
                 <button>SAVE</button>
             </form>
         </div> : 'loading...'

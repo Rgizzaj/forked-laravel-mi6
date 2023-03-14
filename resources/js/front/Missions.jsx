@@ -30,7 +30,7 @@ export default function Missions() {
                         return  <div className="missions-container__mission">
                                     <p>Name: {mission.name}</p>
                                     <p>Year: {mission.year}</p>
-                                    <p>Outcome: {mission.outcome}</p>
+                                    <p>Outcome: {mission.outcome !== null ? (mission.outcome == 1 ? 'Success' : 'Failure') : 'Unknown'}</p>
                                     <a href="#" onClick={()=>setMissionId(mission.id)}>EDIT</a>
                                     <hr/>
                                 </div>
