@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function LeftMenu() {
+export default function LeftMenu({setContent}) {
 
     const [hidden, setHidden] = useState(false);
 
@@ -21,8 +21,9 @@ export default function LeftMenu() {
                 </div>
 
                 <div className="left-menu__links">
-                    <a href="#">Home</a>
-                    <a href="#">People of interest</a>
+                    <a href="#" onClick={()=>setContent('')}>Home</a>
+                    <a href="#" onClick={()=>setContent('people-of-interest')}>People of interest</a>
+                    <a href='#' onClick={()=>setContent('missions')}>Missions</a>
                 </div>
 
             </div>
