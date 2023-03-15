@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import MissionEditForm from "./MissionEditForm";
+import { Link } from "react-router-dom";
 
 export default function Missions() {
     const [missions, setMissions] = useState([]);
@@ -10,7 +11,7 @@ export default function Missions() {
         try {
             let response = await axios.get('/api/missions');
             setMissions(response.data);
-            
+
         } catch (error) {
             console.log(error)
         }
@@ -27,11 +28,14 @@ export default function Missions() {
                     <MissionEditForm missionId={missionId} setMissionId={setMissionId} />
                 :
                     missions.map(mission => {
-                        return  <div className="missions-container__mission">
+                        return  <div
+                                    key={ mission.id }
+                                    className="missions-container__mission"
+                                >
                                     <p>Name: {mission.name}</p>
                                     <p>Year: {mission.year}</p>
                                     <p>Outcome: {mission.outcome !== null ? (mission.outcome == 1 ? 'Success' : 'Failure') : 'Unknown'}</p>
-                                    <a href="#" onClick={()=>setMissionId(mission.id)}>EDIT</a>
+                                    <Link to={ `/missions/${mission.id}/edit` }>EDIT</Link>
                                     <hr/>
                                 </div>
                     })

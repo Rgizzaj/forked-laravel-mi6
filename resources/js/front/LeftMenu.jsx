@@ -1,6 +1,8 @@
 import { useState } from "react"
+import { Link } from "react-router-dom";
+import Logout from "./Logout";
 
-export default function LeftMenu({setContent}) {
+export default function LeftMenu({ user }) {
 
     const [hidden, setHidden] = useState(false);
 
@@ -21,9 +23,27 @@ export default function LeftMenu({setContent}) {
                 </div>
 
                 <div className="left-menu__links">
-                    <a href="#" onClick={()=>setContent('')}>Home</a>
-                    <a href="#" onClick={()=>setContent('people-of-interest')}>People of interest</a>
-                    <a href='#' onClick={()=>setContent('missions')}>Missions</a>
+                    <Link to="/">Home</Link>
+                    <Link to="/people-of-interest">People of interest</Link>
+                    <Link to="/missions">Missions</Link>
+
+                    {
+                        user === false
+                            ? (
+                                <>
+                                    <Link to="/register">Register</Link>
+                                    <Link to="/login">Login</Link>
+                                </>
+                            )
+                            : ''
+                    }
+
+                    {
+                        user
+                            ? <Logout />
+                            : ''
+                    }
+
                 </div>
 
             </div>
