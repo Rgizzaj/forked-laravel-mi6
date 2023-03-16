@@ -5,6 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestEmail;
+use Auth;
+use App\Notifications\TestNotification;
+use App\Models\User;
+use Illuminate\Support\Facades\Notification;
+
 
 class PersonController extends Controller
 {
@@ -41,5 +48,21 @@ class PersonController extends Controller
             ->get();
 
         return compact('people', 'total', 'last_page');
+    }
+
+    public function sendTestEmail() {
+        $temp_var = 'This is variable test';
+
+        Mail::to('test@test.com')
+            ->send(new TestEmail($temp_var));
+    }
+
+    public function sendTestNotification() {
+        $users = User::get();
+
+        Notification::send($users, new TestNotification('hi'));
+
+        // $user = User::first();
+        // $user->notify(new TestNotification('hi'));
     }
 }

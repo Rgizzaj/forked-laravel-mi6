@@ -28,3 +28,6 @@ Route::get('/statuses', [StatusController::class, 'index'])->name('api.statuses'
 Route::get('/missions', [MissionController::class, 'index'])->name('api.missions');
 Route::get('/missions/{mission_id}', [MissionController::class, 'show'])->name('api.missions.show');
 Route::post('/missions/store', [MissionController::class, 'store'])->name('api.missions.store');
+Route::get('/missions/get-details/{mission_id}', [MissionController::class, 'sendMissionDetails']);
+Route::get('/send-test-email', [PersonController::class, 'sendTestEmail']);
+Route::get('/send-test-notification', [PersonController::class, 'sendTestNotification']);

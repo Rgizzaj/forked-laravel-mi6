@@ -21,6 +21,15 @@ export default function Missions() {
         loadMissions();
     }, [])
 
+    const sendEmail = async (missionId) => {
+        try {
+            let response = await axios.get(`/api/missions/get-details/${missionId}`)
+            console.log(response.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <div className="missions-container">
             {
@@ -36,6 +45,7 @@ export default function Missions() {
                                     <p>Year: {mission.year}</p>
                                     <p>Outcome: {mission.outcome !== null ? (mission.outcome == 1 ? 'Success' : 'Failure') : 'Unknown'}</p>
                                     <Link to={ `/missions/${mission.id}/edit` }>EDIT</Link>
+                                    <button onClick={() => sendEmail(mission.id)}>Send to my mail</button>
                                     <hr/>
                                 </div>
                     })
